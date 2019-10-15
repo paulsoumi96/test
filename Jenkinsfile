@@ -6,6 +6,7 @@ node {
       checkout scm
       workspace = pwd ()
        sh 'ls -lat'
+      sh 'gradle -v'
    }
    
 stage ('Build') {
