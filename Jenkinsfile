@@ -1,6 +1,6 @@
 node {
    stage('install gradle'){
-   tool name: 'gradle', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+   tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
       checkout scm
