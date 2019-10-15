@@ -10,8 +10,8 @@ node {
    
 stage ('Build') {
       // sh "'${mvn1}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-    sh 'gradle init'
+    sh '/var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle init'
       sh 'ls -lat'
-   sh 'gradle build'
+   sh '/var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle build'
    }
 }
