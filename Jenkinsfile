@@ -10,8 +10,8 @@ node {
    
 stage ('Build') {
       // sh "'${mvn1}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-    sh 'ssh -t remotehost "sudo -S /var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle init"'
+    sh 'echo $jenkins | sudo -S /var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle init'
       sh 'ls -lat'
-   sh 'ssh -t remotehost "sudo -S /var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle build"'
+   sh 'echo $jenkins |sudo -S /var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle build'
    }
 }
