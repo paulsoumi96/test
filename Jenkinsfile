@@ -1,6 +1,7 @@
 node {
-   def mvn1
-   def app
+   stage('install gradle'){
+   tool name: 'gradle', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+   }
    stage('Checkout') { 
       checkout scm
       workspace = pwd ()
