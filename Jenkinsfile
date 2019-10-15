@@ -12,6 +12,7 @@ node {
 stage ('Build') {
       // sh "'${mvn1}/bin/mvn' -Dmaven.test.failure.ignore clean package"
     sh './gradlew init'
+   echo "initialization complete"
    sh './gradlew build clean'
    }
 }
