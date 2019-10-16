@@ -3,6 +3,7 @@
  */
 
 plugins {
+    id 'war'
     id 'java'
     id 'maven-publish'
 }
