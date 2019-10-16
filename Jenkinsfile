@@ -10,7 +10,7 @@ node {
    }
    stage ('Build') {
       echo "initialization complete"
-      sh './gradlew build clean'
+      sh './gradlew build'
    }
    stage ('Docker Image Build') {
        app = docker.build("paulsoumi96/test:${BUILD_NUMBER}")
