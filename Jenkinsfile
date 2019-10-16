@@ -3,8 +3,6 @@ node {
    stage('Installations'){
       echo "gradle installation"
      tool name: 'gradle', type: 'gradle'
-      echo "docker installation"
-      tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
    }
    stage('Checkout') { 
       checkout scm
