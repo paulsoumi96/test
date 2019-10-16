@@ -1,18 +1,27 @@
 node {
-   stage('install gradle'){
-   tool name: 'gradle', type: 'gradle'
+   def app
+   stage('Install gradle'){
+     tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
       checkout scm
       workspace = pwd ()
-       sh 'ls -lat'
-      
+       sh 'ls -lat' 
    }
-   
-stage ('Build') {
-      // sh "'${mvn1}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-    sh './gradlew init'
-   echo "initialization complete"
-   sh './gradlew build clean'
+   stage ('Build') {
+      echo "initialization complete"
+      sh './gradlew build clean'
+   }
+   stage ('Docker Image Build') {
+       app = docker.build("paulsoumi96/devops:${BUILD_NUMBER}")
+   }
+   stage ('Push Docker Image') {
+       docker.withRegistry('https://registry.hub.docker.com','dockerCred') {
+        		app.push("1-${BUILD_NUMBER}")
+        		app.push("latest")
+      	}
+   }
+   stage('Run Container') {
+      sh "docker run -p 8082:8080 -d paulsoumi96/devops"
    }
 }
