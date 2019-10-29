@@ -29,13 +29,12 @@ def gituserName
        app = docker.build("${props['docker.image']}:${BUILD_NUMBER}")
    }
    stage ('Push Docker Image') {
-	   withCredentials([usernameColonPassword(credentialsId: "${props['docker.cred']}", variable: 'dc')]) 
-			{
-	   docker.withRegistry('https://registry.hub.docker.com',dc) {
+	  
+	   docker.withRegistry('https://registry.hub.docker.com',"${props['docker.cred']}") {
         		app.push("${BUILD_NUMBER}")
         		app.push("latest")
       	}
-			}
+			
    }
    stage('Run Container') {
       sh "docker run -p 8082:8080 -d ${props['docker.image']}"
