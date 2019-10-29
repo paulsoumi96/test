@@ -5,7 +5,7 @@ node {
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
-         checkout scm
+        	 	git branch: 'master', url: 'https://github.com/paulsoumi96/test.git'
         		workspace = pwd ()
 			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
                                                             echo ${username%@*} ''').trim();
