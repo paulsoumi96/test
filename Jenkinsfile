@@ -5,16 +5,16 @@ node {
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
-        	 	git branch: 'master', url: 'https://github.com/paulsoumi96/test.git'
-        		workspace = pwd ()
-			commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
+	 props = readProperties  file: """jenkinsJob.properties"""
+       	 git branch: "${props['git.branch']}", url: "${props['git.url']}"
+         workspace = pwd ()
+	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
                                                             echo ${username%@*} ''').trim();
-			commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
-			commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
+	 commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
+	 commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
                                                             echo $Email''').trim();
-			props = readProperties  file: """jenkinsJob.properties"""
-			gituserName=sh(returnStdout: true, script: """echo \$(dirname ${apiRepoURL.trim()})""").trim();
-			gituserName=sh(returnStdout: true, script: """echo \$(basename ${gituserName.trim()})""").trim();
+	 gituserName=sh(returnStdout: true, script: """echo \$(dirname ${apiRepoURL.trim()})""").trim();
+	 gituserName=sh(returnStdout: true, script: """echo \$(basename ${gituserName.trim()})""").trim();
 			sh"""echo ${gituserName}""" 
    }
    stage ('Build') {
@@ -22,15 +22,15 @@ node {
       sh './gradlew build'
    }
    stage ('Docker Image Build') {
-       app = docker.build("paulsoumi96/test:${BUILD_NUMBER}")
+       app = docker.build("${props['docker.image']}:${BUILD_NUMBER}")
    }
    stage ('Push Docker Image') {
-       docker.withRegistry('https://registry.hub.docker.com','dockercredential') {
+	   docker.withRegistry('https://registry.hub.docker.com',"${props['docker.cred']}") {
         		app.push("${BUILD_NUMBER}")
         		app.push("latest")
       	}
    }
    stage('Run Container') {
-      sh "docker run -p 8082:8080 -d paulsoumi96/test"
+      sh "docker run -p 8082:8080 -d ${props['docker.image']}"
    }
 }
