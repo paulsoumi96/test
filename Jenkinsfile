@@ -5,8 +5,9 @@ node {
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
+	 git branch: "master", url: "https://github.com/paulsoumi96/test.git"
 	 props = readProperties  file: """jenkinsJob.properties"""
-       	 git branch: "${props['git.branch']}", url: "${props['git.url']}"
+       	 
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
                                                             echo ${username%@*} ''').trim();
