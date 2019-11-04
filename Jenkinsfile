@@ -5,6 +5,7 @@ def commit_username
 def commit_email
 def gituserName
 environment{
+	h="some"
 	pp = readProperties  file: """gitjob.properties"""	
 }
    stage('Installations'){
@@ -12,6 +13,7 @@ environment{
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
+	   echo "env.h"
 	   git branch: "${env.pp['git.branch']}", url: "${env.pp['git.url']}"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
