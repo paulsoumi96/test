@@ -4,6 +4,7 @@ def app
 def commit_username
 def commit_email
 def gituserName
+def h
 environment{
 	h="some"
 	pp = readProperties  file: """gitjob.properties"""	
