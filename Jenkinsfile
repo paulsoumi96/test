@@ -12,6 +12,7 @@ environment{
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
+	   println env.pp+" "+pp;
 	   git branch: pp."git.Branch", url: pp."git.Url"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
