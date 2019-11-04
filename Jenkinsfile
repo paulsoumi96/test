@@ -12,7 +12,7 @@ environment{
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
-	   git branch: "${pp['git.branch']}", url: "${pp['git.url']}"
+	   git branch: "${env.pp['git.branch']}", url: "${env.pp['git.url']}"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
