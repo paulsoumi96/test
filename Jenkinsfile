@@ -13,7 +13,7 @@ environment{
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
-	   echo "env.h"
+	   echo "${env.h}"
 	   git branch: "${env.pp['git.branch']}", url: "${env.pp['git.url']}"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
