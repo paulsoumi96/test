@@ -15,7 +15,7 @@ def h
    stage('Checkout') {
 	  withFolderProperties{ 
 	   git branch: env.gitBranch, url: env.gitUrl
-	  }
+	  
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
@@ -23,9 +23,10 @@ def h
 	 commit_username=sh(returnStdout: true, script: """echo ${commit_username} | sed 's/48236651+//g'""").trim()
 	 commit_Email=sh(returnStdout: true, script: '''Email=$(git log -1 --pretty=%ae) 
                                                             echo $Email''').trim();
-	 gituserName=sh(returnStdout: true, script: """echo \$(dirname ${gitUrl.trim()})""").trim();
+	 gituserName=sh(returnStdout: true, script: """echo \$(dirname ${env.gitUrl.trim()})""").trim();
 	 gituserName=sh(returnStdout: true, script: """echo \$(basename ${gituserName.trim()})""").trim();
 			sh"""echo ${gituserName}""" 
+   	}
    }
    stage ('Build') {
       echo "initialization complete"
