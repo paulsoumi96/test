@@ -1,4 +1,3 @@
-properties([parameters([string(defaultValue: 'https://github.com/paulsoumi96/test.git', description: '', name: 'gitUrl', trim: false), string(defaultValue: 'master', description: '', name: 'gitBranch', trim: false)])])
 node {
 def app
 def commit_username
@@ -15,7 +14,7 @@ environment{
    }
    stage('Checkout') { 
 	   echo "${env.h}"
-	   git branch: "${env.pp['git.branch']}", url: "${env.pp['git.url']}"
+	   git branch: "${gitBranch}", url: "${gitUrl}"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
