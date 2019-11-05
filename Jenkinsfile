@@ -12,8 +12,10 @@ def h
       echo "gradle installation"
      tool name: 'gradle', type: 'gradle'
    }
-   stage('Checkout') { 
+   stage('Checkout') {
+	  withFolderProperties{ 
 	   git branch: env.gitBranch, url: env.gitUrl
+	  }
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
