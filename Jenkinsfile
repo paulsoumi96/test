@@ -13,7 +13,7 @@ def h
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') { 
-	  
+	   echo "${env.gitBranch}"
 	   git branch: "${env.gitBranch}", url: "${env.gitUrl}"
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
