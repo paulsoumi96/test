@@ -14,7 +14,7 @@ def h
    }
    stage('Checkout') { 
 	   echo "${env.gitBranch}"
-	   git branch: "${env.gitBranch}", url: "${env.gitUrl}"
+	   git branch: env.gitBranch, url: env.gitUrl
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
