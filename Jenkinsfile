@@ -3,9 +3,7 @@ def app
 def commit_username
 def commit_email
 def gituserName
-def h
 /*environment{
-	h="some"
 	pp = readProperties  file: """gitjob.properties"""	
 }*/
    stage('Installations'){
@@ -13,9 +11,8 @@ def h
      tool name: 'gradle', type: 'gradle'
    }
    stage('Checkout') {
-	  withFolderProperties{ 
-	   git branch: env.gitBranch, url: env.gitUrl
-	  
+	withFolderProperties{ 
+	 git branch: env.gitBranch, url: env.gitUrl
 	 props = readProperties  file: """jenkinsJob.properties"""
          workspace = pwd ()
 	 commit_username=sh(returnStdout: true, script: '''username=$(git log -1 --pretty=%an) 
