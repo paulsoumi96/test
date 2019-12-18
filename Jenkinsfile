@@ -42,7 +42,7 @@ def gituserName
    }
    stage ('Scan Container Images') {
 	sh 'rm anchore_images || true'
-    	sh """echo "${app}:${BUILD_NUMBER}" > anchore_images"""
+    	sh """echo "${props['docker.image']}:${BUILD_NUMBER}" > anchore_images"""
 	anchore 'anchore_images'
    }
    stage('Run Container') {
